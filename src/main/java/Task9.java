@@ -17,25 +17,20 @@ public class Task9 {
 
 
             boolean continueReadingInput=true;
-            int x = 15;
-            int y = 10;
-            int oldX=x;
-            int oldY=y;
-            int oldOldX=oldX;
-            int oldOldY=oldY;
 
-            int xMonster= 20;
-            int yMonster=15;
-            final char player = 'X';
+
+            Position p = new Position(15,10);
+            Position pOld = new Position(p.x, p.y);
+            Position pOldOld = new Position(pOld.x, pOld.y);
+
+
+
             final char monster = '\u0394';
             KeyType latestType = null;
 
-            terminal.setCursorPosition(x,y);
-            terminal.putCharacter(player);
 
-
-            terminal.setCursorPosition(xMonster,+yMonster);
-            terminal.putCharacter(monster);
+            terminal.setCursorPosition(p.x,p.y);
+            terminal.putCharacter(p.player);
 
 
             while (continueReadingInput) {
@@ -47,31 +42,30 @@ public class Task9 {
                     index++;
                     if (index %50 == 0){
                         if(latestType != null){
-                            oldOldX = oldX;
-                            oldOldY = oldY;
-                            oldX = x;
-                            oldY = y;
-
+                            pOldOld.x = pOld.x;
+                            pOldOld.y = pOld.y;
+                            pOld.x=p.x;
+                            pOld.y=p.y;
 
 
                             switch (latestType) {
                                 case ArrowDown:
-                                    y += 1;
+                                    p.y += 1;
                                     break;
                                 case ArrowUp:
-                                    y -= 1;
+                                    p.y -= 1;
                                     break;
                                 case ArrowRight:
-                                    x += 1;
+                                    p.x += 1;
                                     break;
                                 case ArrowLeft:
-                                    x -= 1;
+                                    p.x -= 1;
                                     break;
                             }
-                            terminal.setCursorPosition(oldOldX,oldOldY);
+                            terminal.setCursorPosition(pOldOld.x,pOldOld.y);
                             terminal.putCharacter(' ');
-                            terminal.setCursorPosition(x,y);
-                            terminal.putCharacter(player);
+                            terminal.setCursorPosition(p.x,p.y);
+                            terminal.putCharacter(p.player);
                             terminal.flush();
 
                         }
