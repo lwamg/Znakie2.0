@@ -26,7 +26,8 @@ public class Task9 {
             Position pOldOld = new Position(pOld.x, pOld.y);
 
             int randomNumber = ThreadLocalRandom.current().nextInt(1,40);
-            Fruit fruit = new Fruit(randomNumber,randomNumber);
+            int randomNumber2 = ThreadLocalRandom.current().nextInt(1,40);
+            Fruit fruit = new Fruit(randomNumber,randomNumber2);
             terminal.setCursorPosition(fruit.x,fruit.y);
             terminal.putCharacter(fruit.fruit);
 
@@ -69,11 +70,13 @@ public class Task9 {
                                     p.x -= 1;
                                     break;
                             }
-                            if (pOld.x== fruit.x && pOld.y == fruit.y){
+                            if (p.x== fruit.x && p.y == fruit.y){
                                 randomNumber = ThreadLocalRandom.current().nextInt(1,40);
-                                terminal.setCursorPosition(randomNumber, randomNumber);
+                                randomNumber2 = ThreadLocalRandom.current().nextInt(1,40);
+                                terminal.setCursorPosition(randomNumber, randomNumber2);
                                 terminal.putCharacter(fruit.fruit);
-                                terminal.flush();
+                                fruit.x = randomNumber;
+                                fruit.y = randomNumber2;
                             }
 
                             terminal.setCursorPosition(pOldOld.x,pOldOld.y);
