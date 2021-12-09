@@ -48,11 +48,11 @@ public class Task9 {
                 do {
                     index++;
                     if (index %50 == 0){
-                        if(latestType != null){
+                        if(latestType != null) {
                             pOldOld.x = pOld.x;
                             pOldOld.y = pOld.y;
-                            pOld.x=p.x;
-                            pOld.y=p.y;
+                            pOld.x = p.x;
+                            pOld.y = p.y;
 
 
                             switch (latestType) {
@@ -69,11 +69,19 @@ public class Task9 {
                                     p.x -= 1;
                                     break;
                             }
+                            if (pOld.x== fruit.x && pOld.y == fruit.y){
+                                randomNumber = ThreadLocalRandom.current().nextInt(1,40);
+                                terminal.setCursorPosition(randomNumber, randomNumber);
+                                terminal.putCharacter(fruit.fruit);
+                                terminal.flush();
+                            }
+
                             terminal.setCursorPosition(pOldOld.x,pOldOld.y);
                             terminal.putCharacter(' ');
                             terminal.setCursorPosition(p.x,p.y);
                             terminal.putCharacter(p.player);
                             terminal.flush();
+
 
                         }
 
