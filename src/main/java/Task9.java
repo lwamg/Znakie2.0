@@ -21,6 +21,8 @@ public class Task9 {
             int y = 10;
             int oldX=x;
             int oldY=y;
+            int oldOldX=oldX;
+            int oldOldY=oldY;
 
             int xMonster= 20;
             int yMonster=15;
@@ -43,49 +45,34 @@ public class Task9 {
                 KeyStroke keyStroke = null;
                 do {
                     index++;
-                    if (index %25 == 0){
+                    if (index %50 == 0){
                         if(latestType != null){
+                            oldOldX = oldX;
+                            oldOldY = oldY;
+                            oldX = x;
+                            oldY = y;
+
+
+
                             switch (latestType) {
                                 case ArrowDown:
                                     y += 1;
-//                        if(yMonster<=y){
-//                        yMonster +=1;}
-//                        else  if (yMonster>=y){
-//                            yMonster-=2;
-//                        }
                                     break;
                                 case ArrowUp:
                                     y -= 1;
-//                        if(yMonster<=y){
-//                            yMonster +=1;}
-//                        else  if (yMonster>=y) {
-//                            yMonster -= 2;
-//                        }
                                     break;
                                 case ArrowRight:
                                     x += 1;
-//                        if(xMonster <= x) {
-//                            xMonster += 2;
-//                        }
-//                        else if(xMonster >= x){
-//                            xMonster -=2;
-//                        }
                                     break;
                                 case ArrowLeft:
                                     x -= 1;
-//                        if(xMonster <= x) {
-//                            xMonster += 1;
-//                        }
-//                        else if(xMonster >= x){
-//                            xMonster -=2;
-//                        }
                                     break;
-
                             }
-                            terminal.setCursorPosition(oldX,oldY);
+                            terminal.setCursorPosition(oldOldX,oldOldY);
                             terminal.putCharacter(' ');
                             terminal.setCursorPosition(x,y);
                             terminal.putCharacter(player);
+                            terminal.flush();
 
                         }
 
