@@ -19,11 +19,14 @@ public class Task9 {
             boolean continueReadingInput=true;
             int x = 15;
             int y = 10;
+            int oldX=x;
+            int oldY=y;
 
             int xMonster= 20;
             int yMonster=15;
             final char player = 'X';
             final char monster = '\u0394';
+            KeyType latestType = null;
 
             terminal.setCursorPosition(x,y);
             terminal.putCharacter(player);
@@ -35,17 +38,68 @@ public class Task9 {
 
             while (continueReadingInput) {
 
+                int index = 0;
+
                 KeyStroke keyStroke = null;
                 do {
+                    index++;
+                    if (index %25 == 0){
+                        if(latestType != null){
+                            switch (latestType) {
+                                case ArrowDown:
+                                    y += 1;
+//                        if(yMonster<=y){
+//                        yMonster +=1;}
+//                        else  if (yMonster>=y){
+//                            yMonster-=2;
+//                        }
+                                    break;
+                                case ArrowUp:
+                                    y -= 1;
+//                        if(yMonster<=y){
+//                            yMonster +=1;}
+//                        else  if (yMonster>=y) {
+//                            yMonster -= 2;
+//                        }
+                                    break;
+                                case ArrowRight:
+                                    x += 1;
+//                        if(xMonster <= x) {
+//                            xMonster += 2;
+//                        }
+//                        else if(xMonster >= x){
+//                            xMonster -=2;
+//                        }
+                                    break;
+                                case ArrowLeft:
+                                    x -= 1;
+//                        if(xMonster <= x) {
+//                            xMonster += 1;
+//                        }
+//                        else if(xMonster >= x){
+//                            xMonster -=2;
+//                        }
+                                    break;
+
+                            }
+                            terminal.setCursorPosition(oldX,oldY);
+                            terminal.putCharacter(' ');
+                            terminal.setCursorPosition(x,y);
+                            terminal.putCharacter(player);
+
+                        }
+
+                    }
                     Thread.sleep(5);
                     keyStroke = terminal.pollInput();
 
                 } while (keyStroke == null);
 
 
+
                 KeyType type = keyStroke.getKeyType();
                 Character c = keyStroke.getCharacter();
-
+                latestType = type;
 
                 if (c == Character.valueOf('q')) {
                     continueReadingInput = false;
@@ -65,14 +119,13 @@ public class Task9 {
 //
 //                    }
 //                }
-                int oldX=x;
-                int oldY=y;
+
 
 //                int oldXMonster= xMonster;
 //                int oldYMonster= yMonster;
 
 
-
+/*
                 switch (keyStroke.getKeyType()) {
                     case ArrowDown:
                         y += 1;
@@ -111,16 +164,16 @@ public class Task9 {
 
                 }
 
-                if (x == xMonster && y == yMonster) {
+ /*               if (x == xMonster && y == yMonster) {
                     terminal.setCursorPosition(x, y);
                     terminal.putCharacter(player);
 
                 }
                 else
                 terminal.setCursorPosition(oldX,oldY);
-                terminal.putCharacter(' ');
-                terminal.setCursorPosition(x,y);
                 terminal.putCharacter(player);
+                terminal.setCursorPosition(x,y);
+                terminal.putCharacter(player);*/
 
 //                terminal.setCursorPosition(oldXMonster,oldYMonster);
 //                terminal.putCharacter(' ');
