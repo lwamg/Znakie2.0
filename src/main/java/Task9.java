@@ -5,6 +5,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Task9 {
 
@@ -22,6 +24,11 @@ public class Task9 {
             Position p = new Position(15,10);
             Position pOld = new Position(p.x, p.y);
             Position pOldOld = new Position(pOld.x, pOld.y);
+
+            int randomNumber = ThreadLocalRandom.current().nextInt(1,40);
+            Fruit fruit = new Fruit(randomNumber,randomNumber);
+            terminal.setCursorPosition(fruit.x,fruit.y);
+            terminal.putCharacter(fruit.fruit);
 
 
 
