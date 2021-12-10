@@ -1,4 +1,3 @@
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -14,14 +13,17 @@ public class Task9 {
         public static void main(String[] args) throws Exception {
 
 
+            TerminalSize ts = new TerminalSize(100, 120);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
+            terminalFactory.setInitialTerminalSize(ts);
             Terminal terminal = terminalFactory.createTerminal();
             terminal.setCursorVisible(false);
-            TerminalSize ts = new TerminalSize(100, 100);
 
 
             boolean continueReadingInput=true;
 
+            Welcome welcome = new Welcome();
+            welcome.welcomeText(terminal);
 
             final char block = '\u2588';
             KeyType latestType = null;
@@ -29,27 +31,6 @@ public class Task9 {
 
 
             KeyStroke keyStroke = null;
-
-            String g = "WELCOME TO ZNAKIE GAME \t PRESS s TO START THE GAME";
-            for (int i = 0; i < g.length(); i++) {
-                terminal.setCursorPosition(30 + i, 10);
-                terminal.putCharacter(g.charAt(i));
-            }
-            while (keyStroke== null){
-                Thread.sleep(5); // might throw InterruptedException
-                keyStroke = terminal.pollInput();
-            }
-
-
-            Character s = keyStroke.getCharacter();
-
-            if (s == Character.valueOf('s')) {
-                continueReadingInput = true;
-                System.out.println("start");
-                terminal.clearScreen();
-
-            }
-
             Position p = new Position(15,10);
             Position pOld = new Position(p.x, p.y);
             Position pOldOld = new Position(pOld.x, pOld.y);
@@ -155,7 +136,9 @@ public class Task9 {
                             terminal.flush();
 
 
-                        }
+                }
+                    if (p.x == pOld.x && p.y == pOld.y) {
+                        GameOver.gameOver(terminal);
 
                     }
                     Thread.sleep(5);
@@ -249,7 +232,9 @@ public class Task9 {
 //                terminal.putCharacter(monster);
 
 
-        terminal.flush();
-        }
+                terminal.flush();
 
-        }}
+
+        }
+    }
+}
