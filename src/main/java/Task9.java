@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -86,7 +87,7 @@ public class Task9 {
             terminal.setCursorPosition(fruit.x,fruit.y);
             terminal.putCharacter(fruit.fruit);
 
-            int speed = 40;
+            int speed = 50;
             while (continueReadingInput) {
 
                 int index = 0;
@@ -95,8 +96,8 @@ public class Task9 {
 
                 do {
                     index++;
-                    if (index %speed == 0){
-                        if(latestType != null) {
+                    if (index % speed == 0) {
+                        if (latestType != null) {
                             pOldOld.x = pOld.x;
                             pOldOld.y = pOld.y;
                             pOld.x = p.x;
@@ -117,33 +118,33 @@ public class Task9 {
                                     p.x -= 1;
                                     break;
                             }
-                            if (p.x== fruit.x && p.y == fruit.y){
-                                randomNumber = ThreadLocalRandom.current().nextInt(1,40);
-                                randomNumber2 = ThreadLocalRandom.current().nextInt(1,40);
+                            if (p.x == fruit.x && p.y == fruit.y) {
+                                randomNumber = ThreadLocalRandom.current().nextInt(1, 40);
+                                randomNumber2 = ThreadLocalRandom.current().nextInt(1, 40);
                                 terminal.setCursorPosition(randomNumber, randomNumber2);
                                 terminal.putCharacter(fruit.fruit);
                                 fruit.x = randomNumber;
                                 fruit.y = randomNumber2;
-                                if (speed >6){
-                                    speed=speed -5;
+                                if (speed > 10) {
+                                    speed = speed - 5;
                                 }
                             }
 
-                            terminal.setCursorPosition(pOldOld.x,pOldOld.y);
+                            terminal.setCursorPosition(pOldOld.x, pOldOld.y);
                             terminal.putCharacter(' ');
-                            terminal.setCursorPosition(p.x,p.y);
+                            terminal.setCursorPosition(p.x, p.y);
                             terminal.putCharacter(p.player);
                             terminal.flush();
 
 
-                }
-                    if (p.x == pOld.x && p.y == pOld.y) {
-                        GameOver.gameOver(terminal);
+                        }
+                        if (p.x == pOld.x && p.y == pOld.y) {
+                            GameOver.gameOver(terminal);
 
+                        }
+                        Thread.sleep(5);
+                        keyStroke = terminal.pollInput();
                     }
-                    Thread.sleep(5);
-                    keyStroke = terminal.pollInput();
-
                 } while (keyStroke == null);
 
 
@@ -236,5 +237,6 @@ public class Task9 {
 
 
         }
+            }
     }
-}
+
