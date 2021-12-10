@@ -87,7 +87,7 @@ public class Task9 {
             terminal.setCursorPosition(fruit.x,fruit.y);
             terminal.putCharacter(fruit.fruit);
 
-            int speed = 50;
+            int speed = 40;
             while (continueReadingInput) {
 
                 int index = 0;
@@ -96,7 +96,7 @@ public class Task9 {
 
                 do {
                     index++;
-                    if (index % speed == 0) {
+                    if (index %speed == 0) {
                         if (latestType != null) {
                             pOldOld.x = pOld.x;
                             pOldOld.y = pOld.y;
@@ -135,7 +135,7 @@ public class Task9 {
                             terminal.setCursorPosition(p.x, p.y);
                             terminal.putCharacter(p.player);
                             terminal.flush();
-
+                        }
 
                         }
                         if (p.x == pOld.x && p.y == pOld.y) {
@@ -144,7 +144,7 @@ public class Task9 {
                         }
                         Thread.sleep(5);
                         keyStroke = terminal.pollInput();
-                    }
+
                 } while (keyStroke == null);
 
 
