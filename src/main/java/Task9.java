@@ -138,10 +138,47 @@ public class Task9 {
                         }
 
                         }
-                        if (p.x == pOld.x && p.y == pOld.y) {
-                            GameOver.gameOver(terminal);
 
+
+
+                    boolean crashIntoFrameOrItself = false;
+
+                    for (Position pRam : frameRight) {
+                        if (p.x == pRam.x && p.y == pRam.y) {
+                            crashIntoFrameOrItself = true;
+                            break;
                         }
+                    }
+                    for (Position pRam : frameLeft) {
+                        if (p.x == pRam.x && p.y == pRam.y) {
+                            crashIntoFrameOrItself = true;
+                        }
+                    }
+                    for (Position pRam : frameDown) {
+                        if (p.x == pRam.x && p.y == pRam.y) {
+                            crashIntoFrameOrItself = true;
+                        }
+                    }
+                    for (Position pRam : frameUp) {
+                        if (p.x == pRam.x && p.y == pRam.y) {
+                            crashIntoFrameOrItself = true;
+                        }
+                    }
+
+
+                      //   if ( p.x == pOld.x && p.y==pOld.y) {
+                        //    crashIntoFrameOrItself = true;
+                       // }
+
+                    if (crashIntoFrameOrItself) {
+                        GameOver.gameOver(terminal);
+                        System.out.println("Game over");
+                    }
+
+
+
+
+
                         Thread.sleep(5);
                         keyStroke = terminal.pollInput();
 
