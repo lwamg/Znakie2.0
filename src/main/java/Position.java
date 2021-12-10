@@ -3,10 +3,15 @@ public class Position {
     int y;
     final char player = 'X';
 
+
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    public void body(){
+
+
+    }
 
 }

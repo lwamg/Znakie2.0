@@ -11,38 +11,28 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Task9 {
 
         public static void main(String[] args) throws Exception {
-
-
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             Terminal terminal = terminalFactory.createTerminal();
             terminal.setCursorVisible(false);
 
-
             boolean continueReadingInput=true;
-
-
             Position p = new Position(15,10);
             Position pOld = new Position(p.x, p.y);
             Position pOldOld = new Position(pOld.x, pOld.y);
 
             int randomNumber = ThreadLocalRandom.current().nextInt(1,40);
             int randomNumber2 = ThreadLocalRandom.current().nextInt(1,40);
-            Fruit fruit = new Fruit(randomNumber,randomNumber2);
+
+            Fruit fruit = new Fruit(randomNumber, randomNumber2);
             terminal.setCursorPosition(fruit.x,fruit.y);
             terminal.putCharacter(fruit.fruit);
 
-
-
-            final char monster = '\u0394';
             KeyType latestType = null;
-
 
             terminal.setCursorPosition(p.x,p.y);
             terminal.putCharacter(p.player);
 
-
             while (continueReadingInput) {
-
                 int index = 0;
 
                 KeyStroke keyStroke = null;
@@ -183,4 +173,10 @@ public class Task9 {
         terminal.flush();
         }
 
-        }}
+        }
+public static void movment(){
+
+
+}
+
+}
