@@ -11,34 +11,64 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Task9 {
 
         public static void main(String[] args) throws Exception {
+
+
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             Terminal terminal = terminalFactory.createTerminal();
             terminal.setCursorVisible(false);
 
+
             boolean continueReadingInput=true;
+
+
+
+            final char monster = '\u0394';
+            KeyType latestType = null;
+
+
+
+            KeyStroke keyStroke = null;
+
+            String g = "WELCOME TO ZNAKIE GAME \t PRESS s TO START THE GAME";
+            for (int i = 0; i < g.length(); i++) {
+                terminal.setCursorPosition(30 + i, 10);
+                terminal.putCharacter(g.charAt(i));
+            }
+            while (keyStroke== null){
+                Thread.sleep(5); // might throw InterruptedException
+                keyStroke = terminal.pollInput();
+            }
+
+
+            Character s = keyStroke.getCharacter();
+
+            if (s == Character.valueOf('s')) {
+                continueReadingInput = true;
+                System.out.println("start");
+                terminal.clearScreen();
+
+            }
+
             Position p = new Position(15,10);
             Position pOld = new Position(p.x, p.y);
             Position pOldOld = new Position(pOld.x, pOld.y);
 
             int randomNumber = ThreadLocalRandom.current().nextInt(1,40);
             int randomNumber2 = ThreadLocalRandom.current().nextInt(1,40);
-
-            Fruit fruit = new Fruit(randomNumber, randomNumber2);
+            Fruit fruit = new Fruit(randomNumber,randomNumber2);
             terminal.setCursorPosition(fruit.x,fruit.y);
             terminal.putCharacter(fruit.fruit);
 
-            KeyType latestType = null;
-
-            terminal.setCursorPosition(p.x,p.y);
-            terminal.putCharacter(p.player);
-
+            int speed = 40;
             while (continueReadingInput) {
+
                 int index = 0;
 
-                KeyStroke keyStroke = null;
+               keyStroke = null;
+
                 do {
                     index++;
-                    if (index %50 == 0){
+                    if (index %speed == 0){
                         if(latestType != null) {
                             pOldOld.x = pOld.x;
                             pOldOld.y = pOld.y;
@@ -67,6 +97,9 @@ public class Task9 {
                                 terminal.putCharacter(fruit.fruit);
                                 fruit.x = randomNumber;
                                 fruit.y = randomNumber2;
+                                if (speed >10){
+                                    speed=speed -10;
+                                }
                             }
 
                             terminal.setCursorPosition(pOldOld.x,pOldOld.y);
@@ -173,10 +206,4 @@ public class Task9 {
         terminal.flush();
         }
 
-        }
-public static void movment(){
-
-
-}
-
-}
+        }}
