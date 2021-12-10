@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -16,13 +17,13 @@ public class Task9 {
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             Terminal terminal = terminalFactory.createTerminal();
             terminal.setCursorVisible(false);
+            TerminalSize ts = new TerminalSize(100, 100);
 
 
             boolean continueReadingInput=true;
 
 
-
-            final char monster = '\u0394';
+            final char block = '\u2588';
             KeyType latestType = null;
 
 
@@ -52,6 +53,51 @@ public class Task9 {
             Position p = new Position(15,10);
             Position pOld = new Position(p.x, p.y);
             Position pOldOld = new Position(pOld.x, pOld.y);
+
+            Position[] frameDown = new Position[100];
+            for(int i = 0;i<100;i++){
+                frameDown[i] = new Position(i, 100);
+            }
+
+            for (Position pRam : frameDown) {
+                terminal.setCursorPosition(pRam.x, pRam.y);
+                terminal.putCharacter(block);
+            }
+
+            Position[] frameUp = new Position[100];
+            for(int i = 0;i<100;i++){
+                frameUp[i] = new Position(i, 0);
+            }
+
+            for (Position pRam : frameUp) {
+                terminal.setCursorPosition(pRam.x, pRam.y);
+                terminal.putCharacter(block);
+            }
+
+            Position[] frameRight = new Position[100];
+            for(int i = 0;i<100;i++){
+                frameRight[i] = new Position(100, i);
+            }
+
+            for (Position pRam : frameRight) {
+                terminal.setCursorPosition(pRam.x, pRam.y);
+                terminal.putCharacter(block);
+            }
+
+            Position[] frameLeft = new Position[100];
+            for(int i = 0;i<100;i++){
+                frameLeft[i] = new Position(0, i);
+            }
+
+            for (Position pRam : frameLeft) {
+                terminal.setCursorPosition(pRam.x, pRam.y);
+                terminal.putCharacter(block);
+            }
+
+
+
+
+
 
             int randomNumber = ThreadLocalRandom.current().nextInt(1,40);
             int randomNumber2 = ThreadLocalRandom.current().nextInt(1,40);
@@ -97,8 +143,8 @@ public class Task9 {
                                 terminal.putCharacter(fruit.fruit);
                                 fruit.x = randomNumber;
                                 fruit.y = randomNumber2;
-                                if (speed >10){
-                                    speed=speed -10;
+                                if (speed >6){
+                                    speed=speed -5;
                                 }
                             }
 
