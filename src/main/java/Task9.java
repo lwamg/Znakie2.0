@@ -114,10 +114,13 @@ public class Task9 {
                                     break;
                             }
                             positions.add(p);
+
                             for(int i = 0; i < positions.size(); i++){
                                 terminal.setCursorPosition(positions.get(i).x, positions.get(i).y);
                                 terminal.putCharacter(p.player);
                             }
+                            terminal.setCursorPosition(pOldOld.x, pOldOld.y);
+                            terminal.putCharacter(' ');
 
                             if (p.x == fruit.x && p.y == fruit.y) {
                                 randomNumber = ThreadLocalRandom.current().nextInt(1, 40);
@@ -131,8 +134,7 @@ public class Task9 {
                                 }
                             }
 
-                            terminal.setCursorPosition(pOldOld.x, pOldOld.y);
-                            terminal.putCharacter(' ');
+
 
                             terminal.flush();
                         }
