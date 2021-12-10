@@ -1,0 +1,114 @@
+Index: src/main/java/Task9.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/Task9.java b/src/main/java/Task9.java
+--- a/src/main/java/Task9.java	(revision 83bde6f00a490f917397a9382a6cc2c4e46a98b7)
++++ b/src/main/java/Task9.java	(revision 74253a2f8e55a729be649788d24369547c8a0639)
+@@ -24,6 +24,7 @@
+         Welcome welcome = new Welcome();
+         welcome.welcomeText(terminal);
+ 
++
+         boolean continueReadingInput = true;
+         final char block = '\u0394';
+         KeyType latestType = null;
+@@ -31,6 +32,10 @@
+         Position p = new Position(15, 10);
+         Position pOld = new Position(p.x, p.y);
+         Position pOldOld = new Position(pOld.x, pOld.y);
++        ArrayList<Position> positions = new ArrayList<>();
++        positions.add(pOldOld);
++        positions.add(pOld);
++        positions.add(p);
+ 
+         Position[] frameDown = new Position[100];
+         for (int i = 0; i < 100; i++) {
+@@ -111,6 +116,27 @@
+                                 break;
+                         }
+                         if (p.x == fruit.x && p.y == fruit.y) {
++                            positions.add(p);}
++
++
++                        for (int i = 0; i < positions.size(); i++) {
++                            terminal.setCursorPosition(positions.get(i).x, positions.get(i).y);
++                            terminal.putCharacter(p.player);
++                            terminal.flush();
++
++                        }
++
++
++                            terminal.setCursorPosition(positions.get(0).x, positions.get(0).y);
++                            terminal.putCharacter(' ');
++                            terminal.flush();
++
++
++
++
++
++                        if (p.x == fruit.x && p.y == fruit.y) {
++
+                             randomNumber = ThreadLocalRandom.current().nextInt(1, 40);
+                             randomNumber2 = ThreadLocalRandom.current().nextInt(1, 40);
+                             terminal.setCursorPosition(randomNumber, randomNumber2);
+@@ -122,12 +148,15 @@
+                             }
+                         }
+ 
+-                            terminal.setCursorPosition(pOldOld.x, pOldOld.y);
+-                            terminal.putCharacter(' ');
+-                            terminal.setCursorPosition(p.x, p.y);
+-                            terminal.putCharacter(p.player);
+-                            terminal.flush();
++
++//                            terminal.setCursorPosition(p.x, p.y);
++//                            terminal.putCharacter(p.player);
++                        terminal.flush();
+ 
++                    }
++                    }
++                    if (p.x == pOld.x && p.y == pOld.y) {
++                        GameOver.gameOver(terminal);
+ 
+                         }
+ 
+@@ -167,6 +196,11 @@
+                         System.out.println("Game over");
+                     }
+ 
++                    }
++                    Thread.sleep(5);
++                    keyStroke = terminal.pollInput();
++                }
++                while (keyStroke == null) ;
+ 
+ 
+ 
+@@ -265,7 +299,8 @@
+                 terminal.flush();
+ 
+ 
+-        }
+-            }
++            }
++        }
+     }
+ 
++
+diff --git a/target/classes/Task9$1.class b/target/classes/Task9$1.class
+index dc87c7786df47c674d4fb9f99f6ffd71586be3ed..5e4ce803baff65b32e8d4ff5126c94ff631a34aa
+GIT binary patch
+literal 805
+zc$|$=T~8B16g@*fwp|ygh*0qhb&(d7RTE8&9|-{(8rqWBiVr+Zw_`i7%rv`O8vc$i
+zKC6i_#_$9DQN}wHwDFD2X6~GmJNKM>XMX+uaR%Tu0vA)rILLa)A<wWJ>f@lVbw3iJ
+z?uj7cDiyKffmFj$8tjVG&goDv<WG1s5(&d<rFzh~(4m(_6i{^Fdbk9S!Rhei=!O4;
+z;j!Ny%QPG``Ov3Q{-l)ux0G*7`Tz8%4(dg6e%ZqeN({w~IM(AWJyr}W7qnwKpY?DR
+zbL2(GJ*jxakf~Jb4(1sa5BUi<XZt}*w@2ZiCPmcSCY{(QmpxoJ%8pfjH#FQ04>t|x
+zTJEjv4^l(l_HbunvLQaC4(>9PCIWliLlLG7g;!xDl}z7QANvg1O=^H)rXiJRjgGq_
+z?(l9z%xpu4Jlf~6H29pHZl^pvqA8wZx2;EUC~DFIJMMKON(Hx780kc+ep93a-E;7e
+zA!jqlMN1^<j!wvsS652Jn-NbEk(8F`0+;C7uu|Dvq1h305BDkhggzoeJD~O*?Chue
+z70ws)Pk+Oe?A|A2cP(5Xn47>wg82!&MbNSEGqNaR4hy)3GHE=ZxPqs6M)5f|uthP0
+vWzx%A)d6LI#tq5>=23X>P)76rg=$u8Ru!u-XpPoKmRZ9(Mc4L3U#aj1zJ<0b
+

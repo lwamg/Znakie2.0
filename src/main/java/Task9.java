@@ -29,12 +29,7 @@ public class Task9 {
             final char block = '\u2588';
             KeyType latestType = null;
 
-
-
             KeyStroke keyStroke = null;
-            Position p = new Position(15,10);
-            Position pOld = new Position(p.x, p.y);
-            Position pOldOld = new Position(pOld.x, pOld.y);
 
             Position[] frameDown = new Position[100];
             for(int i = 0;i<100;i++){
@@ -76,10 +71,11 @@ public class Task9 {
                 terminal.putCharacter(block);
             }
 
-
-
-
-
+            Position p = new Position(15,10);
+            Position pOld = new Position(p.x, p.y);
+            Position pOldOld = new Position(pOld.x, pOld.y);
+            ArrayList<Position> positions = new ArrayList();
+            positions.add(p);
 
             int randomNumber = ThreadLocalRandom.current().nextInt(1,40);
             int randomNumber2 = ThreadLocalRandom.current().nextInt(1,40);
@@ -103,7 +99,6 @@ public class Task9 {
                             pOld.x = p.x;
                             pOld.y = p.y;
 
-
                             switch (latestType) {
                                 case ArrowDown:
                                     p.y += 1;
@@ -118,6 +113,12 @@ public class Task9 {
                                     p.x -= 1;
                                     break;
                             }
+                            positions.add(p);
+                            for(int i = 0; i < positions.size(); i++){
+                                terminal.setCursorPosition(positions.get(i).x, positions.get(i).y);
+                                terminal.putCharacter(p.player);
+                            }
+
                             if (p.x == fruit.x && p.y == fruit.y) {
                                 randomNumber = ThreadLocalRandom.current().nextInt(1, 40);
                                 randomNumber2 = ThreadLocalRandom.current().nextInt(1, 40);
@@ -132,8 +133,7 @@ public class Task9 {
 
                             terminal.setCursorPosition(pOldOld.x, pOldOld.y);
                             terminal.putCharacter(' ');
-                            terminal.setCursorPosition(p.x, p.y);
-                            terminal.putCharacter(p.player);
+
                             terminal.flush();
                         }
 
