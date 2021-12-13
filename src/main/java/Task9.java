@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static com.googlecode.lanterna.TextColor.*;
 
 public class Task9 {
 
@@ -19,6 +22,8 @@ public class Task9 {
             terminalFactory.setInitialTerminalSize(ts);
             Terminal terminal = terminalFactory.createTerminal();
             terminal.setCursorVisible(false);
+            terminal.setForegroundColor(ANSI.GREEN);
+
             boolean continueReadingInput=true;
 
             //Welcome
@@ -125,7 +130,7 @@ public class Task9 {
                             positionY.remove(0);
                             terminal.flush();
                         }
-                        }
+                    }
 
                    boolean stopReading = frameWork(terminal, block,x,y,score,continueReadingInput);
                    continueReadingInput = stopReading;
