@@ -13,24 +13,23 @@ public class Task9 {
 
         public static void main(String[] args) throws Exception {
 
-
+            //Setting the terminal size and color
             TerminalSize ts = new TerminalSize(100, 50);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             terminalFactory.setInitialTerminalSize(ts);
             Terminal terminal = terminalFactory.createTerminal();
             terminal.setCursorVisible(false);
-
             boolean continueReadingInput=true;
 
+            //Welcome
             Welcome welcome = new Welcome();
             welcome.welcomeText(terminal);
 
+            //The looks and starting position for the Znakie
             final char block = '\u2588';
             KeyType latestType = null;
             int score=0;
-
             KeyStroke keyStroke = null;
-
             Position p = new Position(15,10);
             ArrayList<Integer> positionX = new ArrayList();
             ArrayList<Integer> positionY = new ArrayList();
@@ -41,14 +40,17 @@ public class Task9 {
             int x = 15;
             int y = 10;
 
+            //Outer boundaries
             frameWork(terminal, block,x,y,score,continueReadingInput);
 
+            //Placing out the first fruit
             int randomNumber = ThreadLocalRandom.current().nextInt(3,40);
             int randomNumber2 = ThreadLocalRandom.current().nextInt(3,40);
             Fruit fruit = new Fruit(randomNumber,randomNumber2);
             terminal.setCursorPosition(fruit.x,fruit.y);
             terminal.putCharacter(fruit.fruit);
 
+            //Running the game
             int speed = 35;
             while (continueReadingInput) {
                 int index = 0;
@@ -122,9 +124,7 @@ public class Task9 {
                             positionX.remove(0);
                             positionY.remove(0);
                             terminal.flush();
-
                         }
-
                         }
 
                    boolean stopReading = frameWork(terminal, block,x,y,score,continueReadingInput);
@@ -136,7 +136,6 @@ public class Task9 {
 
                 } while (keyStroke == null);
 
-
                 KeyType type = keyStroke.getKeyType();
                 Character c = keyStroke.getCharacter();
                 latestType = type;
@@ -145,13 +144,11 @@ public class Task9 {
                     continueReadingInput = false;
                     terminal.close();
                     System.out.println("quit");
-
                 }
-
                 terminal.flush();
-
             }
         }
+
 
         public static boolean frameWork(Terminal terminal, char block, int x, int y, int score, boolean continueReadingInput)throws Exception{
             boolean crashIntoFrameOrItself = false;
@@ -210,7 +207,6 @@ public class Task9 {
             if (crashIntoFrameOrItself) {
                 GameOver.gameOver(terminal,score);
                 continueReadingInput=false;
-
             }
         }
         return continueReadingInput;
