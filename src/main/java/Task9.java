@@ -14,7 +14,7 @@ public class Task9 {
         public static void main(String[] args) throws Exception {
 
 
-            TerminalSize ts = new TerminalSize(100, 100);
+            TerminalSize ts = new TerminalSize(100, 50);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             terminalFactory.setInitialTerminalSize(ts);
             Terminal terminal = terminalFactory.createTerminal();
@@ -62,6 +62,7 @@ public class Task9 {
                     if (index %speed == 0) {
                         if (latestType != null) {
 
+
                             switch (latestType) {
                                 case ArrowDown:
                                     y += 1;
@@ -76,6 +77,16 @@ public class Task9 {
                                     x -= 1;
                                     break;
                             }
+
+                            if (positionX.size() > 3){
+                                for (int i = 0 ; i < positionX.size(); i++) {
+                                    if (x == positionX.get(i) && y == positionY.get(i)) {
+                                        continueReadingInput = false;
+                                        GameOver.gameOver(terminal, score);
+                                    }
+                                }
+
+                            }
                             positionX.add(x);
                             positionY.add(y);
                             for(int i = 0; i < positionX.size(); i++){
@@ -84,6 +95,8 @@ public class Task9 {
                             }
 
                             if (x == fruit.x && y == fruit.y) {
+                                positionX.add(x);
+                                positionY.add(y);
                                 positionX.add(x);
                                 positionY.add(y);
                                 randomNumber = ThreadLocalRandom.current().nextInt(4, 40);
@@ -101,6 +114,7 @@ public class Task9 {
                                     terminal.setCursorPosition(positionX.get(i), positionY.get(i));
                                     terminal.putCharacter(p.player);
                                 }
+
                             }
                             terminal.setCursorPosition(positionX.get(0), positionY.get(0));
                             terminal.putCharacter(' ');
@@ -108,11 +122,15 @@ public class Task9 {
                             positionY.remove(0);
                             terminal.flush();
 
-                        }
+
 
                         }
 
-                    frameWork(terminal, block,x,y,score,continueReadingInput);
+                        }
+
+                   boolean stopReading = frameWork(terminal, block,x,y,score,continueReadingInput);
+                   continueReadingInput = stopReading;
+
 
                         Thread.sleep(5);
                         keyStroke = terminal.pollInput();
@@ -136,24 +154,24 @@ public class Task9 {
             }
         }
 
-        public static void frameWork(Terminal terminal, char block, int x, int y, int score, boolean continueReadingInput)throws Exception{
+        public static boolean frameWork(Terminal terminal, char block, int x, int y, int score, boolean continueReadingInput)throws Exception{
             boolean crashIntoFrameOrItself = false;
 
-        Position[] frameDown = new Position[100];
-        for(int i = 0;i<100;i++){
-            frameDown[i] = new Position(i, 100);
+        Position[] frameDown = new Position[50];
+        for(int i = 0;i<50;i++){
+            frameDown[i] = new Position(i, 50);
         }
 
         for (Position pRam : frameDown) {
             terminal.setCursorPosition(pRam.x, pRam.y);
             terminal.putCharacter(block);
-            if (x == pRam.x && y == pRam.y) {
+            if (y >= pRam.y) {
                 crashIntoFrameOrItself = true;
             }
         }
 
-        Position[] frameUp = new Position[100];
-        for(int i = 0;i<100;i++){
+        Position[] frameUp = new Position[50];
+        for(int i = 0;i<50;i++){
             frameUp[i] = new Position(i, 0);
         }
 
@@ -165,9 +183,9 @@ public class Task9 {
             }
         }
 
-        Position[] frameRight = new Position[100];
-        for(int i = 0;i<100;i++){
-            frameRight[i] = new Position(100, i);
+        Position[] frameRight = new Position[50];
+        for(int i = 0;i<50;i++){
+            frameRight[i] = new Position(50, i);
         }
 
         for (Position pRam : frameRight) {
@@ -178,10 +196,13 @@ public class Task9 {
             }
         }
 
-        Position[] frameLeft = new Position[100];
-        for(int i = 0;i<100;i++){
+        Position[] frameLeft = new Position[50];
+        for(int i = 0;i<50;i++){
             frameLeft[i] = new Position(0, i);
         }
+
+
+
 
         for (Position pRam : frameLeft) {
             terminal.setCursorPosition(pRam.x, pRam.y);
@@ -196,6 +217,7 @@ public class Task9 {
 
             }
         }
+        return continueReadingInput;
     }
 }
 

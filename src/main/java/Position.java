@@ -1,7 +1,7 @@
 public class Position {
     int x;
     int y;
-    final char player = 'X';
+    final char player = '\u0460';
 
 
     public Position(int x, int y) {
