@@ -1,4 +1,5 @@
 
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.Terminal;
 
@@ -8,10 +9,11 @@ public class Welcome {
 
 public void welcomeText(Terminal terminal)throws Exception{
 
+
     KeyStroke keyStroke = null;
 
     for (int i = 0; i < g.length(); i++) {
-        terminal.setCursorPosition(30 + i, 10);
+        terminal.setCursorPosition(26 + i, 23);
         terminal.putCharacter(g.charAt(i));
     }
     while (keyStroke== null){
@@ -24,7 +26,6 @@ public void welcomeText(Terminal terminal)throws Exception{
     if (s == Character.valueOf('s')) {
         System.out.println("start");
         terminal.clearScreen();
-
     }
 
 }}

@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -9,16 +10,18 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static com.googlecode.lanterna.TextColor.*;
+
 public class Task9 {
 
         public static void main(String[] args) throws Exception {
-
 
             TerminalSize ts = new TerminalSize(100, 50);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             terminalFactory.setInitialTerminalSize(ts);
             Terminal terminal = terminalFactory.createTerminal();
             terminal.setCursorVisible(false);
+            terminal.setForegroundColor(ANSI.GREEN);
 
             boolean continueReadingInput=true;
 

@@ -11,8 +11,9 @@ public class GameOver {
         String g = "GAME OVER! You scored " + score;
         terminal.clearScreen();
         for (int i = 0; i < g.length(); i++) {
-            terminal.setCursorPosition(30 + i, 10);
+            terminal.setCursorPosition(34 + i, 23);
             terminal.putCharacter(g.charAt(i));
+            terminal.setForegroundColor(TextColor.ANSI.RED);
 
         }
 
