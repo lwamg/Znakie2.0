@@ -49,7 +49,7 @@ public class Task9 {
             terminal.setCursorPosition(fruit.x,fruit.y);
             terminal.putCharacter(fruit.fruit);
 
-            int speed = 40;
+            int speed = 35;
             while (continueReadingInput) {
                 int index = 0;
 
@@ -88,7 +88,12 @@ public class Task9 {
                             positionY.add(y);
                             for(int i = 0; i < positionX.size(); i++){
                                 terminal.setCursorPosition(positionX.get(i), positionY.get(i));
-                                terminal.putCharacter(p.player);
+                                if (i == positionX.size() - 1){
+                                    terminal.putCharacter(p.head);
+                                }
+                                else {
+                                    terminal.putCharacter(p.player);
+                                }
                             }
 
                             if (x == fruit.x && y == fruit.y) {
@@ -103,8 +108,8 @@ public class Task9 {
                                 fruit.x = randomNumber;
                                 fruit.y = randomNumber2;
                                 score++;
-                                if (speed > 10) {
-                                    speed = speed - 5;
+                                if (speed > 8) {
+                                    speed = speed -3;
                                 }
 
                                 for(int i = 0; i < positionX.size(); i++){
@@ -151,21 +156,21 @@ public class Task9 {
         public static boolean frameWork(Terminal terminal, char block, int x, int y, int score, boolean continueReadingInput)throws Exception{
             boolean crashIntoFrameOrItself = false;
 
-        Position[] frameDown = new Position[50];
-        for(int i = 0;i<50;i++){
-            frameDown[i] = new Position(i, 50);
+        Position[] frameDown = new Position[100];
+        for(int i = 0;i<100;i++){
+            frameDown[i] = new Position(i, 49);
         }
 
         for (Position pRam : frameDown) {
             terminal.setCursorPosition(pRam.x, pRam.y);
             terminal.putCharacter(block);
-            if (y >= pRam.y) {
+            if (y == pRam.y) {
                 crashIntoFrameOrItself = true;
             }
         }
 
-        Position[] frameUp = new Position[50];
-        for(int i = 0;i<50;i++){
+        Position[] frameUp = new Position[100];
+        for(int i = 0;i<100;i++){
             frameUp[i] = new Position(i, 0);
         }
 
@@ -177,9 +182,9 @@ public class Task9 {
             }
         }
 
-        Position[] frameRight = new Position[50];
-        for(int i = 0;i<50;i++){
-            frameRight[i] = new Position(50, i);
+        Position[] frameRight = new Position[100];
+        for(int i = 0;i<100;i++){
+            frameRight[i] = new Position(100, i);
         }
 
         for (Position pRam : frameRight) {
@@ -190,8 +195,8 @@ public class Task9 {
             }
         }
 
-        Position[] frameLeft = new Position[50];
-        for(int i = 0;i<50;i++){
+        Position[] frameLeft = new Position[100];
+        for(int i = 0;i<100;i++){
             frameLeft[i] = new Position(0, i);
         }
 
