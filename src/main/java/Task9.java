@@ -71,8 +71,8 @@ public class Task9 {
             }
 
             Position p = new Position(15,10);
-            Position pOld = new Position(p.x, p.y);
-            Position pOldOld = new Position(pOld.x, pOld.y);
+//            Position pOld = new Position(p.x, p.y);
+//            Position pOldOld = new Position(pOld.x, pOld.y);
             ArrayList<Integer> positionX = new ArrayList();
             ArrayList<Integer> positionY = new ArrayList();
     //        positions.add(p);
