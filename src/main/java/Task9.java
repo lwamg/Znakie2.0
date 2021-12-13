@@ -129,8 +129,8 @@ public class Task9 {
                             if (x == fruit.x && y == fruit.y) {
                                 positionX.add(x);
                                 positionY.add(y);
-                                randomNumber = ThreadLocalRandom.current().nextInt(1, 70);
-                                randomNumber2 = ThreadLocalRandom.current().nextInt(1, 70);
+                                randomNumber = ThreadLocalRandom.current().nextInt(2, 60);
+                                randomNumber2 = ThreadLocalRandom.current().nextInt(2, 60);
                                 terminal.setCursorPosition(randomNumber, randomNumber2);
                                 terminal.putCharacter(fruit.fruit);
                                 fruit.x = randomNumber;
@@ -174,6 +174,17 @@ public class Task9 {
                         if (x == pRam.x && y == pRam.y) {
                             crashIntoFrameOrItself = true;
                         }
+                    }
+                    if (positionX.size() > 4){
+                        for (int i = positionX.size() -2 ; i >= 0; i--) {
+                            if (x != positionX.get(i) && y != positionY.get(i)) {
+                                break;
+                            }
+                            else{
+                                crashIntoFrameOrItself = true;
+                            }
+                        }
+
                     }
 
 
