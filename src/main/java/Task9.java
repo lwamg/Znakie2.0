@@ -31,7 +31,6 @@ public class Task9 {
 
             KeyStroke keyStroke = null;
 
-
             Position p = new Position(15,10);
             ArrayList<Integer> positionX = new ArrayList();
             ArrayList<Integer> positionY = new ArrayList();
@@ -52,7 +51,6 @@ public class Task9 {
 
             int speed = 40;
             while (continueReadingInput) {
-
                 int index = 0;
 
                keyStroke = null;
@@ -61,7 +59,6 @@ public class Task9 {
                     index++;
                     if (index %speed == 0) {
                         if (latestType != null) {
-
 
                             switch (latestType) {
                                 case ArrowDown:
@@ -114,15 +111,12 @@ public class Task9 {
                                     terminal.setCursorPosition(positionX.get(i), positionY.get(i));
                                     terminal.putCharacter(p.player);
                                 }
-
                             }
                             terminal.setCursorPosition(positionX.get(0), positionY.get(0));
                             terminal.putCharacter(' ');
                             positionX.remove(0);
                             positionY.remove(0);
                             terminal.flush();
-
-
 
                         }
 
@@ -200,9 +194,6 @@ public class Task9 {
         for(int i = 0;i<50;i++){
             frameLeft[i] = new Position(0, i);
         }
-
-
-
 
         for (Position pRam : frameLeft) {
             terminal.setCursorPosition(pRam.x, pRam.y);
