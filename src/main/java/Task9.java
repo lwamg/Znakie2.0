@@ -14,7 +14,7 @@ public class Task9 {
         public static void main(String[] args) throws Exception {
 
 
-            TerminalSize ts = new TerminalSize(100, 120);
+            TerminalSize ts = new TerminalSize(100, 100);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             terminalFactory.setInitialTerminalSize(ts);
             Terminal terminal = terminalFactory.createTerminal();
