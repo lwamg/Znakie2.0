@@ -3,7 +3,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.Terminal;
 
 public class Welcome {
-    String g = "WELCOME TO ZNAKIE GAME \t PRESS s TO START THE GAME";
+    String g = "WELCOME TO ZNAKIE GAME \n PRESS S TO START THE GAME";
 
 
 public void welcomeText(Terminal terminal)throws Exception{

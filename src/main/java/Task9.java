@@ -14,7 +14,7 @@ public class Task9 {
         public static void main(String[] args) throws Exception {
 
 
-            TerminalSize ts = new TerminalSize(100, 100);
+            TerminalSize ts = new TerminalSize(100, 50);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             terminalFactory.setInitialTerminalSize(ts);
             Terminal terminal = terminalFactory.createTerminal();
@@ -31,7 +31,6 @@ public class Task9 {
 
             KeyStroke keyStroke = null;
 
-
             Position p = new Position(15,10);
             ArrayList<Integer> positionX = new ArrayList();
             ArrayList<Integer> positionY = new ArrayList();
@@ -42,7 +41,7 @@ public class Task9 {
             int x = 15;
             int y = 10;
 
-            frameWork(terminal, block,x,y,score,continueReadingInput);
+            frameWork(terminal, block, p.x, p.y,score,continueReadingInput);
 
             int randomNumber = ThreadLocalRandom.current().nextInt(3,40);
             int randomNumber2 = ThreadLocalRandom.current().nextInt(3,40);
@@ -52,7 +51,6 @@ public class Task9 {
 
             int speed = 40;
             while (continueReadingInput) {
-
                 int index = 0;
 
                keyStroke = null;
@@ -112,8 +110,8 @@ public class Task9 {
 
                         }
 
-                    frameWork(terminal, block,x,y,score,continueReadingInput);
-
+                    boolean stopReadingInput=frameWork(terminal, block,x,y,score,continueReadingInput);
+               continueReadingInput=stopReadingInput;
                         Thread.sleep(5);
                         keyStroke = terminal.pollInput();
 
@@ -136,12 +134,13 @@ public class Task9 {
             }
         }
 
-        public static void frameWork(Terminal terminal, char block, int x, int y, int score, boolean continueReadingInput)throws Exception{
+        public static boolean frameWork(Terminal terminal, char block, int x, int y, int score, boolean continueReadingInput)throws Exception{
             boolean crashIntoFrameOrItself = false;
+
 
         Position[] frameDown = new Position[100];
         for(int i = 0;i<100;i++){
-            frameDown[i] = new Position(i, 100);
+            frameDown[i] = new Position(i, 45);
         }
 
         for (Position pRam : frameDown) {
@@ -195,7 +194,7 @@ public class Task9 {
                 continueReadingInput=false;
 
             }
-        }
+        }return continueReadingInput;
     }
 }
 
