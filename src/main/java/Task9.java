@@ -20,7 +20,6 @@ public class Task9 {
             Terminal terminal = terminalFactory.createTerminal();
             terminal.setCursorVisible(false);
 
-
             boolean continueReadingInput=true;
 
             Welcome welcome = new Welcome();
@@ -74,8 +73,15 @@ public class Task9 {
             Position p = new Position(15,10);
             Position pOld = new Position(p.x, p.y);
             Position pOldOld = new Position(pOld.x, pOld.y);
-            ArrayList<Position> positions = new ArrayList();
-            positions.add(p);
+            ArrayList<Integer> positionX = new ArrayList();
+            ArrayList<Integer> positionY = new ArrayList();
+    //        positions.add(p);
+            positionX.add(15);
+            positionY.add(10);
+            positionX.add(15);
+            positionY.add(10);
+            int x = 15;
+            int y = 10;
 
             int randomNumber = ThreadLocalRandom.current().nextInt(1,40);
             int randomNumber2 = ThreadLocalRandom.current().nextInt(1,40);
@@ -94,37 +100,37 @@ public class Task9 {
                     index++;
                     if (index %speed == 0) {
                         if (latestType != null) {
-                            pOldOld.x = pOld.x;
-                            pOldOld.y = pOld.y;
-                            pOld.x = p.x;
-                            pOld.y = p.y;
+//                            pOldOld.x = pOld.x;
+//                            pOldOld.y = pOld.y;
+//                            pOld.x = p.x;
+//                            pOld.y = p.y;
 
                             switch (latestType) {
                                 case ArrowDown:
-                                    p.y += 1;
+                                    y += 1;
                                     break;
                                 case ArrowUp:
-                                    p.y -= 1;
+                                    y -= 1;
                                     break;
                                 case ArrowRight:
-                                    p.x += 1;
+                                    x += 1;
                                     break;
                                 case ArrowLeft:
-                                    p.x -= 1;
+                                    x -= 1;
                                     break;
                             }
-                            positions.add(p);
-
-                            for(int i = 0; i < positions.size(); i++){
-                                terminal.setCursorPosition(positions.get(i).x, positions.get(i).y);
+                            positionX.add(x);
+                            positionY.add(y);
+                            for(int i = 0; i < positionX.size(); i++){
+                                terminal.setCursorPosition(positionX.get(i), positionY.get(i));
                                 terminal.putCharacter(p.player);
                             }
-                            terminal.setCursorPosition(pOldOld.x, pOldOld.y);
-                            terminal.putCharacter(' ');
 
-                            if (p.x == fruit.x && p.y == fruit.y) {
-                                randomNumber = ThreadLocalRandom.current().nextInt(1, 40);
-                                randomNumber2 = ThreadLocalRandom.current().nextInt(1, 40);
+                            if (x == fruit.x && y == fruit.y) {
+                                positionX.add(x);
+                                positionY.add(y);
+                                randomNumber = ThreadLocalRandom.current().nextInt(1, 70);
+                                randomNumber2 = ThreadLocalRandom.current().nextInt(1, 70);
                                 terminal.setCursorPosition(randomNumber, randomNumber2);
                                 terminal.putCharacter(fruit.fruit);
                                 fruit.x = randomNumber;
@@ -133,10 +139,13 @@ public class Task9 {
                                     speed = speed - 5;
                                 }
                             }
-
-
-
+                            terminal.setCursorPosition(positionX.get(0), positionY.get(0));
+                            terminal.putCharacter(' ');
+                            positionX.remove(0);
+                            positionY.remove(0);
                             terminal.flush();
+
+
                         }
 
                         }
@@ -146,23 +155,23 @@ public class Task9 {
                     boolean crashIntoFrameOrItself = false;
 
                     for (Position pRam : frameRight) {
-                        if (p.x == pRam.x && p.y == pRam.y) {
+                        if (x == pRam.x && y == pRam.y) {
                             crashIntoFrameOrItself = true;
                             break;
                         }
                     }
                     for (Position pRam : frameLeft) {
-                        if (p.x == pRam.x && p.y == pRam.y) {
+                        if (x == pRam.x && y == pRam.y) {
                             crashIntoFrameOrItself = true;
                         }
                     }
                     for (Position pRam : frameDown) {
-                        if (p.x == pRam.x && p.y == pRam.y) {
+                        if (x == pRam.x && y == pRam.y) {
                             crashIntoFrameOrItself = true;
                         }
                     }
                     for (Position pRam : frameUp) {
-                        if (p.x == pRam.x && p.y == pRam.y) {
+                        if (x == pRam.x && y == pRam.y) {
                             crashIntoFrameOrItself = true;
                         }
                     }
@@ -275,7 +284,7 @@ public class Task9 {
                 terminal.flush();
 
 
-        }
             }
-    }
+        }
+}
 
