@@ -27,55 +27,14 @@ public class Task9 {
 
             final char block = '\u2588';
             KeyType latestType = null;
+            int score=0;
 
             KeyStroke keyStroke = null;
 
-            Position[] frameDown = new Position[100];
-            for(int i = 0;i<100;i++){
-                frameDown[i] = new Position(i, 100);
-            }
-
-            for (Position pRam : frameDown) {
-                terminal.setCursorPosition(pRam.x, pRam.y);
-                terminal.putCharacter(block);
-            }
-
-            Position[] frameUp = new Position[100];
-            for(int i = 0;i<100;i++){
-                frameUp[i] = new Position(i, 0);
-            }
-
-            for (Position pRam : frameUp) {
-                terminal.setCursorPosition(pRam.x, pRam.y);
-                terminal.putCharacter(block);
-            }
-
-            Position[] frameRight = new Position[100];
-            for(int i = 0;i<100;i++){
-                frameRight[i] = new Position(100, i);
-            }
-
-            for (Position pRam : frameRight) {
-                terminal.setCursorPosition(pRam.x, pRam.y);
-                terminal.putCharacter(block);
-            }
-
-            Position[] frameLeft = new Position[100];
-            for(int i = 0;i<100;i++){
-                frameLeft[i] = new Position(0, i);
-            }
-
-            for (Position pRam : frameLeft) {
-                terminal.setCursorPosition(pRam.x, pRam.y);
-                terminal.putCharacter(block);
-            }
 
             Position p = new Position(15,10);
-//            Position pOld = new Position(p.x, p.y);
-//            Position pOldOld = new Position(pOld.x, pOld.y);
             ArrayList<Integer> positionX = new ArrayList();
             ArrayList<Integer> positionY = new ArrayList();
-    //        positions.add(p);
             positionX.add(15);
             positionY.add(10);
             positionX.add(15);
@@ -83,8 +42,10 @@ public class Task9 {
             int x = 15;
             int y = 10;
 
-            int randomNumber = ThreadLocalRandom.current().nextInt(1,40);
-            int randomNumber2 = ThreadLocalRandom.current().nextInt(1,40);
+            frameWork(terminal, block,x,y,score,continueReadingInput);
+
+            int randomNumber = ThreadLocalRandom.current().nextInt(3,40);
+            int randomNumber2 = ThreadLocalRandom.current().nextInt(3,40);
             Fruit fruit = new Fruit(randomNumber,randomNumber2);
             terminal.setCursorPosition(fruit.x,fruit.y);
             terminal.putCharacter(fruit.fruit);
@@ -100,10 +61,6 @@ public class Task9 {
                     index++;
                     if (index %speed == 0) {
                         if (latestType != null) {
-//                            pOldOld.x = pOld.x;
-//                            pOldOld.y = pOld.y;
-//                            pOld.x = p.x;
-//                            pOld.y = p.y;
 
                             switch (latestType) {
                                 case ArrowDown:
@@ -129,14 +86,20 @@ public class Task9 {
                             if (x == fruit.x && y == fruit.y) {
                                 positionX.add(x);
                                 positionY.add(y);
-                                randomNumber = ThreadLocalRandom.current().nextInt(2, 60);
-                                randomNumber2 = ThreadLocalRandom.current().nextInt(2, 60);
+                                randomNumber = ThreadLocalRandom.current().nextInt(4, 40);
+                                randomNumber2 = ThreadLocalRandom.current().nextInt(4, 40);
                                 terminal.setCursorPosition(randomNumber, randomNumber2);
                                 terminal.putCharacter(fruit.fruit);
                                 fruit.x = randomNumber;
                                 fruit.y = randomNumber2;
+                                score++;
                                 if (speed > 10) {
                                     speed = speed - 5;
+                                }
+
+                                for(int i = 0; i < positionX.size(); i++){
+                                    terminal.setCursorPosition(positionX.get(i), positionY.get(i));
+                                    terminal.putCharacter(p.player);
                                 }
                             }
                             terminal.setCursorPosition(positionX.get(0), positionY.get(0));
@@ -145,67 +108,16 @@ public class Task9 {
                             positionY.remove(0);
                             terminal.flush();
 
-
                         }
 
                         }
 
-
-
-                    boolean crashIntoFrameOrItself = false;
-
-                    for (Position pRam : frameRight) {
-                        if (x == pRam.x && y == pRam.y) {
-                            crashIntoFrameOrItself = true;
-                            break;
-                        }
-                    }
-                    for (Position pRam : frameLeft) {
-                        if (x == pRam.x && y == pRam.y) {
-                            crashIntoFrameOrItself = true;
-                        }
-                    }
-                    for (Position pRam : frameDown) {
-                        if (x == pRam.x && y == pRam.y) {
-                            crashIntoFrameOrItself = true;
-                        }
-                    }
-                    for (Position pRam : frameUp) {
-                        if (x == pRam.x && y == pRam.y) {
-                            crashIntoFrameOrItself = true;
-                        }
-                    }
-                    if (positionX.size() > 4){
-                        for (int i = positionX.size() -2 ; i >= 0; i--) {
-                            if (x != positionX.get(i) && y != positionY.get(i)) {
-                                break;
-                            }
-                            else{
-                                crashIntoFrameOrItself = true;
-                            }
-                        }
-
-                    }
-
-
-                      //   if ( p.x == pOld.x && p.y==pOld.y) {
-                        //    crashIntoFrameOrItself = true;
-                       // }
-
-                    if (crashIntoFrameOrItself) {
-                        GameOver.gameOver(terminal);
-                        System.out.println("Game over");
-                    }
-
-
-
-
+                    frameWork(terminal, block,x,y,score,continueReadingInput);
 
                         Thread.sleep(5);
                         keyStroke = terminal.pollInput();
 
                 } while (keyStroke == null);
-
 
 
                 KeyType type = keyStroke.getKeyType();
@@ -219,83 +131,71 @@ public class Task9 {
 
                 }
 
-//                if (x == xMonster && y == yMonster) {
-//                    continueReadingInput = false;
-//                    System.out.println("GAME OVER");
-//                    String g = "GAME OVER \t WINNER \u0394 \t LOSER X";
-//                    for (int i = 0; i < g.length(); i++) {
-//                        terminal.setCursorPosition(30+i, 10);
-//                        terminal.putCharacter(g.charAt(i));
-//
-//
-//                    }
-//                }
-
-
-//                int oldXMonster= xMonster;
-//                int oldYMonster= yMonster;
-
-
-/*
-                switch (keyStroke.getKeyType()) {
-                    case ArrowDown:
-                        y += 1;
-//                        if(yMonster<=y){
-//                        yMonster +=1;}
-//                        else  if (yMonster>=y){
-//                            yMonster-=2;
-//                        }
-                        break;
-                    case ArrowUp:
-                        y -= 1;
-//                        if(yMonster<=y){
-//                            yMonster +=1;}
-//                        else  if (yMonster>=y) {
-//                            yMonster -= 2;
-//                        }
-                        break;
-                    case ArrowRight:
-                        x += 1;
-//                        if(xMonster <= x) {
-//                            xMonster += 2;
-//                        }
-//                        else if(xMonster >= x){
-//                            xMonster -=2;
-//                        }
-                        break;
-                    case ArrowLeft:
-                        x -= 1;
-//                        if(xMonster <= x) {
-//                            xMonster += 1;
-//                        }
-//                        else if(xMonster >= x){
-//                            xMonster -=2;
-//                        }
-                        break;
-
-                }
-
- /*               if (x == xMonster && y == yMonster) {
-                    terminal.setCursorPosition(x, y);
-                    terminal.putCharacter(player);
-
-                }
-                else
-                terminal.setCursorPosition(oldX,oldY);
-                terminal.putCharacter(player);
-                terminal.setCursorPosition(x,y);
-                terminal.putCharacter(player);*/
-
-//                terminal.setCursorPosition(oldXMonster,oldYMonster);
-//                terminal.putCharacter(' ');
-//                terminal.setCursorPosition(xMonster,+yMonster);
-//                terminal.putCharacter(monster);
-
-
                 terminal.flush();
-
 
             }
         }
+
+        public static void frameWork(Terminal terminal, char block, int x, int y, int score, boolean continueReadingInput)throws Exception{
+            boolean crashIntoFrameOrItself = false;
+
+        Position[] frameDown = new Position[100];
+        for(int i = 0;i<100;i++){
+            frameDown[i] = new Position(i, 100);
+        }
+
+        for (Position pRam : frameDown) {
+            terminal.setCursorPosition(pRam.x, pRam.y);
+            terminal.putCharacter(block);
+            if (x == pRam.x && y == pRam.y) {
+                crashIntoFrameOrItself = true;
+            }
+        }
+
+        Position[] frameUp = new Position[100];
+        for(int i = 0;i<100;i++){
+            frameUp[i] = new Position(i, 0);
+        }
+
+        for (Position pRam : frameUp) {
+            terminal.setCursorPosition(pRam.x, pRam.y);
+            terminal.putCharacter(block);
+            if (x == pRam.x && y == pRam.y) {
+                crashIntoFrameOrItself = true;
+            }
+        }
+
+        Position[] frameRight = new Position[100];
+        for(int i = 0;i<100;i++){
+            frameRight[i] = new Position(100, i);
+        }
+
+        for (Position pRam : frameRight) {
+            terminal.setCursorPosition(pRam.x, pRam.y);
+            terminal.putCharacter(block);
+            if (x == pRam.x && y == pRam.y) {
+                crashIntoFrameOrItself = true;
+            }
+        }
+
+        Position[] frameLeft = new Position[100];
+        for(int i = 0;i<100;i++){
+            frameLeft[i] = new Position(0, i);
+        }
+
+        for (Position pRam : frameLeft) {
+            terminal.setCursorPosition(pRam.x, pRam.y);
+            terminal.putCharacter(block);
+            if (x == pRam.x && y == pRam.y) {
+                crashIntoFrameOrItself = true;
+            }
+
+            if (crashIntoFrameOrItself) {
+                GameOver.gameOver(terminal,score);
+                continueReadingInput=false;
+
+            }
+        }
+    }
 }
 
