@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -59,8 +60,7 @@ public class Task9 {
             int speed = 35;
             while (continueReadingInput) {
                 int index = 0;
-
-               keyStroke = null;
+                keyStroke = null;
 
                 do {
                     index++;
@@ -97,6 +97,7 @@ public class Task9 {
                                 terminal.setCursorPosition(positionX.get(i), positionY.get(i));
                                 if (i == positionX.size() - 1){
                                     terminal.putCharacter(p.head);
+                                    ;
                                 }
                                 else {
                                     terminal.putCharacter(p.player);
@@ -145,6 +146,7 @@ public class Task9 {
                 Character c = keyStroke.getCharacter();
                 latestType = type;
 
+                //ending the game while playing
                 if (c == Character.valueOf('q')) {
                     continueReadingInput = false;
                     terminal.close();
@@ -154,7 +156,7 @@ public class Task9 {
             }
         }
 
-
+        // setting the outer boundaries and watching if Znakie splash in to it!
         public static boolean frameWork(Terminal terminal, char block, int x, int y, int score, boolean continueReadingInput)throws Exception{
             boolean crashIntoFrameOrItself = false;
 

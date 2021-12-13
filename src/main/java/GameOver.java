@@ -6,6 +6,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 public class GameOver {
+// Happends when Znakie splash against henself or boundaries
 
     public static void gameOver(Terminal terminal, int score)throws Exception {
         String g = "GAME OVER! You scored " + score;

@@ -8,7 +8,7 @@ public class Welcome {
 
 
 public void welcomeText(Terminal terminal)throws Exception{
-
+//Starting screen
 
     KeyStroke keyStroke = null;
 
